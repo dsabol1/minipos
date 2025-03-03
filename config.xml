@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>miniPOS</name>
+    <description>Sample Apache Cordova App</description>
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        Apache Cordova Team
+    </author>
+
+    <!-- Content and URL handling -->
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+
+    <!-- Permissions for Camera & Flashlight (for barcode scanning) -->
+    <platform name="android">
+    	<icon src="res/icon.png" />
+    	
+    	<!-- Use your single splash image -->
+	<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash.png"/>
+	    
+	<!-- Background color of the splash screen -->
+	<preference name="AndroidWindowSplashScreenBackgroundColor" value="#7af8ff"/>
+	    
+	<!-- Controls how long the splash is shown (in milliseconds) -->
+	<preference name="AndroidWindowSplashScreenDuration" value="3000"/>
+	    
+	<!-- Enable smooth fade-out transition -->
+        <preference name="AndroidWindowSplashScreenFadeOutDuration" value="500"/>
+    
+        <!-- Permissions for camera and flashlight -->
+        <config-file target="AndroidManifest.xml" parent="/*" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.FLASHLIGHT" />
+        </config-file>
+    </platform>
+    
+
+    <platform name="ios">
+        <!-- Camera usage description for iOS -->
+        <config-file target="*-Info.plist" parent="/*">
+            <key>NSCameraUsageDescription</key>
+            <string>We need access to the camera to scan barcodes</string>
+        </config-file>
+    </platform>
+
+</widget>
