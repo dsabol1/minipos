@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="hr" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/general.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>miniPOS Sustav</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="row">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand ml-1" href="#">
+                <i class="fa-solid fa-cash-register fa-2x"></i>
+                miniPOS Sustav
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#HomePage">Početna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#CustomerManage">Kupci</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ItemManage">Proizvodi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#OrderManage">Računi</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="home-sec" id="HomePage">
+        <div class="container">
+            <div class="row row d-flex align-items-stretch justify-content-center">
+                <div class="col-12 col-lg-4 mt-5">
+                    <a href="#CustomerManage" class="nav-link d-block text-decoration-none">
+                        <div class="p-4 card text-white bg-primary d-flex align-items-center">
+                            <i class="fas fa-users fa-4x card-icon mt-2"></i>
+                            <div class="card-body text-center">
+                                <h1 class="card-title count" id="total-customers"></h1>
+                                <h2 class="card-text">Kupci</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-lg-4 mt-5">
+                    <a href="#ItemManage" class="nav-link d-block text-decoration-none">
+                        <div class="p-4 card text-white bg-primary d-flex align-items-center">
+                            <i class="fas fa-tag fa-4x card-icon mt-2"></i>
+                            <div class="card-body text-center">
+                                <h1 class="card-title count" id="total-items"></h1>
+                                <h2 class="card-text">Proizvodi</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-lg-4 mt-5">
+                    <a href="#OrderManage" class="nav-link d-block text-decoration-none">
+                        <div class="p-4 card text-white bg-primary d-flex align-items-center">
+                            <i class="fas fa-store fa-4x card-icon mt-2"></i>
+                            <div class="card-body text-center">
+                                <h1 class="card-title count" id="total-orders"></h1>
+                                <h2 class="card-text">Računi</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="customer-sec" id="CustomerManage" style="display: none;">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="container mt-4 col-lg-4 col-12">
+                    <form>
+                        <div class="shadow">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">Podaci o kupcu</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="cus-ID" class="form-label">Šifra kupca</label>
+                                        <input type="text" class="form-control" id="cus-ID" placeholder="Unesite šifru kupca">
+                                        <div class="text-danger small" id="cusId-error"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cus-name" class="form-label">Ime i prezime kupca</label>
+                                        <input type="text" class="form-control" id="cus-name" placeholder="Unesite ime i prezime kupca">
+                                        <div class="text-danger small" id="cusName-error"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cus-address" class="form-label">Ulica i kućni broj</label>
+                                        <input type="text" class="form-control" id="cus-address" placeholder="Unesite adresu kupca">
+                                        <div class="text-danger small" id="cusAddress-error"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cus-city" class="form-label">Grad</label>
+                                        <input type="text" class="form-control" id="cus-city" placeholder="Unesite grad kupca">
+                                        <div class="text-danger small" id="cusCity-error"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap gap-1 mt-1 justify-content-center">
+                                    <button type="button" class="btn btn-primary rounded-lg px-4 shadow-sm mx-1 my-1" id="save-cus">
+                                        <i class="bi bi-save"></i> Spremi
+                                    </button>
+                                    <button type="button" class="btn btn-danger rounded-lg px-4 shadow-sm mx-1 my-1" id="remove-cus">
+                                        <i class="bi bi-trash"></i> Ukloni
+                                    </button>
+                                    <button type="button" class="btn btn-warning text-white rounded-lg px-4 shadow-sm mx-1 my-1" id="update-cus">
+                                        <i class="bi bi-pencil-square"></i> Ažuriraj
+                                    </button>
+                                    <button type="button" class="btn btn-success rounded-lg px-4 shadow-sm mx-1 my-1" id="getall-cus">
+                                        <i class="bi bi-clipboard-data"></i> Prikaži sve
+                                    </button>
+                                    <button type="button" class="btn btn-secondary rounded-lg px-4 shadow-sm mx-1 my-1" id="clear">
+                                        <i class="bi bi-x-circle"></i> Očisti
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="container mt-3 col-lg-8 col-12">
+                    <div class="shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Popis kupaca</h4>
+                        </div>
+                        <div class="card-body">
+                            <table id="data-table" class="table table-striped table-bordered table-hover table-sm">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Šifra kupca</th>
+                                        <th>Ime i prezime kupca</th>
+                                        <th>Adresa kupca</th>
+                                        <th>Grad kupca</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cus-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section class="container-fluid mt-3" id="ItemManage" style="display: none;">
+        <div class="row">
+            <div class="col-lg-4 col-12 mt-4">
+                <form class="shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Obrazac proizvoda</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="item-code" class="form-label">Šifra proizvoda</label>
+                            <input type="text" class="form-control" id="item-code" placeholder="Unesite šifru proizvoda">
+                            <div class="text-danger small" id="itemCode-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="item-ean" class="form-label">EAN proizvoda</label>
+                            <input type="text" class="form-control" id="item-ean" placeholder="Unesite EAN proizvoda">
+                            <div class="text-danger small" id="itemCode-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="item-name" class="form-label">Naziv proizvoda</label>
+                            <input type="text" class="form-control" id="item-name" placeholder="Unesite naziv proizvoda">
+                            <div class="text-danger small" id="itemName-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="item-qty" class="form-label">Količina proizvoda</label>
+                            <input type="text" class="form-control" id="item-qty" placeholder="Unesite količinu proizvoda">
+                            <div class="text-danger small" id="itemQty-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="unit-price" class="form-label">Jedinična cijena</label>
+                            <input type="text" class="form-control" id="unit-price" placeholder="Unesite jediničnu cijenu">
+                            <div class="text-danger small" id="unitPrice-error"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="item-image">Slika artikla:</label>
+                            <input type="button" id="capture-image" value="Snimi sliku">
+                            <img id="item-image" src="" alt="Slika artikla" class="item-image-preview">
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 justify-content-center">
+                            <button type="button" class="btn btn-primary m-1" id="add-item">Dodaj proizvod</button>
+                            <button type="button" class="btn btn-danger m-1" id="remove-item">Ukloni</button>
+                            <button type="button" class="btn btn-warning text-white m-1" id="update-item">Ažuriraj</button>
+                            <button type="button" class="btn btn-success m-1" id="getall-item">Prikaži sve</button>
+                            <button type="button" class="btn btn-secondary m-1" id="clear-item">Očisti sve</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-8 col-12 mt-3">
+                <div class="shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Popis proizvoda</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Šifra</th>
+                                    <th>Naziv</th>
+                                    <th>Kol</th>
+                                    <th>Cijena</th>
+                                    <th class="d-none d-md-table-cell">EAN</th>
+                                    <th>Slika</th>
+                                </tr>
+                            </thead>
+                            <tbody id="item-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid mt-4" id="OrderManage" style="display: none;">
+        <div class="row">
+            <div class="col-lg-6 col-12 mt-3">
+                <form class="shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Podaci o računu</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-6">
+                                <label for="order-id" class="form-label">ID Računa</label>
+                                <input type="text" class="form-control" id="order-id">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="order-date" class="form-label">Datum</label>
+                                <input type="text" class="form-control" id="order-date" placeholder="dd/mm/yyyy">
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="customer-list" class="form-label">Kupac</label>
+                                <select class="form-select" id="customer-list">
+                                    <option value="" disabled selected>Odaberite kupca</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="cus-id-order" class="form-label">ID Kupca</label>
+                                <input type="text" class="form-control" id="cus-id-order">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cus-name-order" class="form-label">Ime i prezime kupca</label>
+                            <input type="text" class="form-control" id="cus-name-order">
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-5">
+                                <label for="cus-city-order" class="form-label">Grad</label>
+                                <input type="text" class="form-control" id="cus-city-order">
+                            </div>
+                            <div class="mb-3 col-7">
+                                <label for="cus-address-order" class="form-label">Ulica i kućni broj</label>
+                                <input type="text" class="form-control" id="cus-address-order">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-12 mt-3">
+                <form class="shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Odabir proizvoda</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-12">
+                                <label for="item-list" class="form-label">Proizvod</label>
+                                <select class="form-select" id="item-list">
+                                    <option value="" disabled selected>Odaberite proizvod</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="item-code-order" class="form-label">Šifra</label>
+                                <input type="text" class="form-control" id="item-code-order">
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="item-name-order" class="form-label">Naziv</label>
+                                <input type="text" class="form-control" id="item-name-order">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-3">
+                                <label for="item-price-order" class="form-label">Cijena</label>
+                                <input type="text" class="form-control" id="item-price-order">
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="item-qty-order" class="form-label">Količina(skl)</label>
+                                <input type="text" class="form-control" id="item-qty-order">
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="ordered-qty" class="form-label">Kol</label>
+                                <input id="ordered-qty" class="form-control col-6" type="number" inputmode="numeric" step="1" pattern="[0-9]*" value="1" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary mt-2" id="additem-btn">Dodaj proizvod</button>
+                            <button type="button" class="btn btn-primary mt-2" id="scanitem-btn">
+                                <i class="fas fa-barcode"></i> Skeniraj proizvod
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-12 mt-4">
+                <div class="shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Popis stavki</h4>
+                    </div>
+                    <div class="card-body">
+                        <table id="cart-table" class="table table-striped table-bordered table-hover table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Šifra</th>
+                                    <th>Naziv</th>
+                                    <th>Cijena</th>
+                                    <th>Kol</th>
+                                    <th>Ukupno</th>
+                                    <th>EAN</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-12 mt-3">
+                <form class="purchase-form shadow rounded bg-light">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="mb-0">Plaćanje</h4>
+                    </div>
+                    <div class="card-body payment-detail">
+                        <div class="row">
+                            <h5 class="total col-6">
+                                Ukupno: <span id="total-order">0.00</span>
+                            </h5>
+                            <h5 class="subtotal col-6">
+                                Sveukupno: <span id="sub-total-order">0.00</span>
+                            </h5>
+                        </div>
+                        <div class="cash-discount mt-2">
+                            <div>
+                                <p>Gotovina</p>
+                                <input type="text" id="paidAmount">
+                            </div>
+                            <div class="mt-2">
+                                <p>Popust</p>
+                                <input type="text" id="discount" placeholder="0%">
+                            </div>
+                        </div>
+                        <div class="bal mt-2">
+                            <p>Povrat</p>
+                            <input type="text" id="balance">
+                        </div>
+                        <div class="text-center mt-2">
+                            <button class="btn btn-primary" id="btn-purchase">Kupnja</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div id="spacer">
+    </div>
+    <footer class="bg-primary text-white text-center py-3 fixed-bottom">
+        © 2025 Damir Sabol, TVZ - RMA
+    </footer>
+    <script src="cordova.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="module" src="controller/IndexController.js"></script>
+    <script type="module" src="controller/CustomerController.js"></script>
+    <script type="module" src="dto/CustomerDto.js"></script>
+    <script type="module" src="controller/ItemController.js"></script>
+    <script type="module" src="dto/ItemDto.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="controller/OrderController.js"></script>

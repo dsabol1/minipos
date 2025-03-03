@@ -1,0 +1,26 @@
+{
+  "@red-mobile/cordova-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "@red-mobile/cordova-plugin-barcodescanner@^9.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-keyboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-keyboard@^1.2.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@^8.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}
